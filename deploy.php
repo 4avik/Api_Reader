@@ -4,18 +4,18 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Zone ühenduss
-set('application', 'yl5');
-set('remote_user', 'virt106855');
-set('http_user', 'virt106855');
+set('application', 'api');
+set('remote_user', 'virt106854');
+set('http_user', 'virt106854');
 set('keep_releases', 2);
 
-host('tak21tanak.itmajakas.ee')
-    ->setHostname('tak21tanak.itmajakas.ee')
-    ->set('http_user', 'virt106855')
-    ->set('deploy_path', '~/domeenid/www.tak21tanak.itmajakas.ee/yl5')
+host('tak21aavik.itmajakas.ee')
+    ->setHostname('tak21aavik.itmajakas.ee')
+    ->set('http_user', 'virt106854')
+    ->set('deploy_path', '~/domeenid/www.tak21aavik.itmajakas.ee/api')
     ->set('branch', 'master');
 
-set('repository', 'git@github.com:tanakimees/yl5_1.git');
+set('repository', 'git@github.com:4avik/Api_Reader.git');
 
 // tasks
 task('opcache:clear', function () {

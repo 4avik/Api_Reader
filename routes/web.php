@@ -22,7 +22,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $planes = Plane::all();
-    return view('dashboard', ['planes' => $planes]);
+    $response = Http::get('https://mannicoon.com/api/cats?limit=5');
+    $cats = json_decode($response, true);
+    return view('dashboard', ['planes' => $planes, 'cats' => $cats]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlaneController;
-use App\Models\Plane;
+use App\Http\Controllers\PlantController;
+use App\Models\Plant;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +21,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $planes = Plane::all();
+    $plants = Plant::all();
     $response = Http::get('https://mannicoon.com/api/cats?limit=5');
     $cats = json_decode($response, true);
-    return view('dashboard', ['planes' => $planes, 'cats' => $cats]);
+
+    $friendResponse = Http::get('https://yl5.tak21tanak.itmajakas.ee/data');
+    $friendPlanes = json_decode($friendResponse, true);
+
+    return view('dashboard', ['plants' => $plants, 'cats' => $cats, 'friendPlanes' => $friendPlanes]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -33,10 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get("data", [PlaneController::class,'getData']);
+Route::get("data", [PlantController::class, 'getData']);
 
-Route::get("data/other", [PlaneController::class,'getOtherData'])->name('plane.other');;
+Route::get("data/other", [PlantController::class, 'getOtherData'])->name('plant.other');
 
-Route::post("dashboard", [PlaneController::class, 'store'])->name('plane.store');
+Route::post("dashboard", [PlantController::class, 'store'])->name('plant.store');
 
 require __DIR__.'/auth.php';
